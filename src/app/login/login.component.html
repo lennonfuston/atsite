@@ -1,0 +1,35 @@
+<div class="content col-md-8 col-xs-12" style="position: absolute; left: 50%; top: 50%; transform: Translate3D(-50%,-50%,0);">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Login</h4>
+                        </div>
+                        <div class="content">
+                            <form #myForm="ngForm" (ngSubmit)="register(myForm.value)" autocomplete="off">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Usuário</label>
+                                            <input required type="email" class="form-control" placeholder="Usuário" name="usuario" [(ngModel)]="login.usuario" #inputUsuario>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Senha</label>
+                                            <input required type="password" class="form-control" placeholder="Senha" name="senha" [(ngModel)]="login.senha">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" [disabled]="myForm.form.status == 'INVALID'" class="btn btn-info btn-fill col-md-12 col-xs-12">Logar</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

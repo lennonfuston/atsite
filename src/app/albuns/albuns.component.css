@@ -1,0 +1,8 @@
+.thumb {
+    height: 200px;
+    width: 250px;
+    transform: translateX(-50%);
+    left: 50%;
+    border-radius: 15px;
+    border: none;
+}

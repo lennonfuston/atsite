@@ -1,20 +1,92 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<head><title>{{title}}</title></head>
+<div class="wrapper">
+    <div *ngIf="user.getUserLoggedIn()" class="sidebar" data-color="blue" dataa-image="assets/template/img/sidebar-5.jpg">
+    <!--
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+    -->
+        <div class="sidebar-wrapper">
+            <div class="logo hidden-md hidden-lg">
+                <span class="simple-text">
+                    Menu
+                </span>
+            </div>
 
+            <ul class="nav">
+                <li [ngClass]="(currentUrl=='Painel')?'active':''">
+                    <a (click)="goTo(['painel'], 'Painel')">
+                        <i class="pe-7s-graph"></i>
+                        <p>Painel</p>
+                    </a>
+                </li>
+                <li [ngClass]="(currentUrl=='Contato')?'active':''">
+                    <a (click)="goTo(['contato'], 'Contato')">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Contato</p>
+                    </a>
+                </li>
+                <li [ngClass]="(currentUrl=='Vídeos')?'active':''">
+                    <a (click)="goTo(['videos'], 'Vídeos')">
+                        <i class="pe-7s-film"></i>
+                        <p>Vídeos</p>
+                    </a>
+                </li>
+                <li [ngClass]="(currentUrl=='Álbuns')?'active':''">
+                    <a (click)="goTo(['albuns'], 'Álbuns')">
+                        <i class="pe-7s-albums"></i>
+                        <p>Albuns</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel" [ngClass]="(user.getUserLoggedIn())?'':'full-page'">
+        <nav class="navbar navbar-default navbar-fixed" *ngIf="user.getUserLoggedIn()">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">Administração</span>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <p>
+                                    <i class="pe-7s-config"></i> 
+                                    <span class="hidden-md">Opções</span>
+                                    <b class="caret"></b>
+                                </p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                <li>
+                                    <span class="notification hidden-sm hidden-xs" *ngIf="countmessages.length > 0">{{countmessages.length}}</span>
+                                    <a style="cursor: pointer;" (click)="goTo(['mensagens'], 'Mensagens')"><i class="pe-7s-paper-plane"></i> Mensagens</a></li>
+                                <li class="divider"></li>
+                                <li><a (click)="deslogar()" style="cursor: pointer;"><i class="pe-7s-power"></i> Deslogar</a></li>
+                                </ul>
+                        </li>
+                        <li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <br  *ngIf="user.getUserLoggedIn()"/>
+        <router-outlet></router-outlet>
+
+        <footer class="footer" *ngIf="user.getUserLoggedIn()">
+            <div class="container-fluid">
+                <p class="copyright pull-right">
+                    &copy; <span>{{yearDate}}</span> <a href="https://www.fuston.com.br/" target="_blank">Fuston Services</a>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</div>

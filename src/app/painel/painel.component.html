@@ -1,0 +1,142 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Cabeçalho</h4>
+                        <p class="category">Insira o texto do cabeçalho.</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="salvarCabecalho()" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Cabeçalho</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: Lançamento Hit Pit-Stop" name="cabecalho" [(ngModel)]="cabecalho.text">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Texto Cabeçalho</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Biografia</h4>
+                        <p class="category">Descreva a sua biografia.</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="salvarBiografia()" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea [(ngModel)]="biografia.text" name="biografia" class="col-md-12 col-xs-12" rows="21" style="border: 1px solid rgb(228, 228, 228); resize: none; margin-bottom: 10px; border-radius: 5px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Biografia</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Redes Sociais</h4>
+                        <p class="category">Insira os links para suas redes sociais.</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="salvarRedeSocial()" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Youtube</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: http://youtube.com/" name="youtube" [(ngModel)]="redesocial[0].text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Facebook</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: http://facebook.com/" name="facebook" [(ngModel)]="redesocial[1].text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Spotify</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: http://spotify.com/" name="spotify" [(ngModel)]="redesocial[2].text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Instagram</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: http://instagram.com/" name="instagram" [(ngModel)]="redesocial[3].text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Twitter</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: http://twitter.com/" name="twitter" [(ngModel)]="redesocial[4].text">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Redes Sociais</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Agenda</h4>
+                        <p class="category">Insira os dias em que terá shows.</p>
+                    </div>
+                    <div class="content">
+                        <form #f="ngForm" (ngSubmit)="salvarAgenda(f)" autocomplete="off">
+                            <button type="button" class="btn btn-success btn-fill" (click)="createDate()"><fa name="plus"></fa></button>
+                            <br>
+                            <br>
+                            <div class="row" *ngFor="let ag of agenda; let i = index">
+                                <div class="col-md-3 col-xs-3">
+                                    <div class="form-group">
+                                        <label>Data</label>
+                                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="agenda[i].data" required type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-xs-7">
+                                    <div class="form-group">
+                                        <label>Localização</label>
+                                        <input [ngModelOptions]="{standalone: true}" [(ngModel)]="agenda[i].localizacao" required type="text" class="form-control" placeholder="Ex.: São Paulo / Guarujá / Campinas">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="form-group">
+                                        <label>Deletar Data</label>
+                                        <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteDate(i)"><fa name="minus"></fa></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Agenda</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

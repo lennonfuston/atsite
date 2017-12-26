@@ -1,0 +1,50 @@
+  <div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">{{albumLocal}}</h4>
+                        <p class="category">{{albumData | date : 'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="salvarFoto()" autocomplete="off" method="POST" id="formFoto" enctype="multipart/form-data">
+                          <div class="row">
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="form-group">
+                                      <label>Foto</label>
+                                      <input #inputAlbumFoto required type="file" class="form-control" name="foto" id="foto">
+                                  </div>
+                              </div>
+                          </div>
+                          <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Foto</button>
+                          <div class="clearfix"></div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+<div *ngIf="album.length > 0">  
+  <div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-xs-6" *ngFor="let a of album">
+                <div class="card">
+                    <div class="header">
+                        <button class="btn btn-danger btn-fill pull-right" (click)="deleteFoto(a.id)"><fa name="close"></fa></button>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                          <img class="col-md-12 col-xs-12 thumb" [src]="domSanitizer('http://localhost:3000/static/'+a.caminho)" frameborder="0" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

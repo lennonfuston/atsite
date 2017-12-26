@@ -1,0 +1,136 @@
+<body class="body-site">
+  <div id="goTop"><fa name="chevron-up"></fa></div>
+  <header>
+    <nav>
+      <img class="logo" src="assets/template/img/logo-angelo-thiago.fw.png"/>
+      <ul>
+        <li id="inicio-anchor">Início</li>
+        <li id="biografia-anchor">Biografia</li>
+        <li id="musica-anchor">Musicas</li>
+        <li id="galeria-anchor">Galeria</li>
+        <li id="agenda-anchor">Agenda</li>
+        <li id="contato-anchor">Contato</li>
+      </ul>
+    </nav>
+    <div class="icons">
+      <a href="{{instagram}}"><img *ngIf="instagram" src="assets/template/img/icon-instagram.fw.png"/></a>
+      <a href="{{twitter}}"><img *ngIf="twitter" src="assets/template/img/icone-twitter.fw.png"/></a>
+      <a href="{{youtube}}"><img *ngIf="youtube" src="assets/template/img/icone-youtube.fw.png"/></a>
+      <a href="{{facebook}}"><img *ngIf="facebook" src="assets/template/img/icone-facebook.fw.png"/></a>
+      <a href="{{spotify}}"><img *ngIf="spotify" src="assets/template/img/icone-spotffi.fw.png"/></a>
+    </div>
+    <div class="text" *ngIf="cabecalho">{{cabecalho}}</div>
+  </header>
+  <section class="biografia" *ngIf="biografia.text">
+    <img src="assets/template/img/logo-angelo-thiago.fw.png" />
+    <div class="content">
+      <h1>Biografia</h1>
+      <textarea rows="20" readonly [(ngModel)]="biografia.text"></textarea>
+    </div>
+  </section>
+  <section class="musica">
+    <div class="left">
+    </div>
+    <div class="right">
+      <h1>Musicas</h1>
+      <iframe src="https://embed.spotify.com/?uri=spotify:album:1WnMYGraVdlzLJsNYRr7zP" width="600" height="380" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+  </section>
+  <section class="entre-contato" *ngIf="telefones.length > 0">
+    <h2>ENTRE EM CONTATO</h2>
+    <h1>{{telefones[0].telefone}}</h1>
+  </section>
+  <section class="galeria">
+    <div class="header">
+      <hr />
+      <h1>Galeria</h1>
+    </div>
+    <div class="content">
+      <ngu-carousel
+        [inputs]="carouselBanner2"
+        [moveToSlide]="1"
+        (onMove)="onmoveFn2($event)">
+        <ngu-item *ngFor="let a of galeria" NguCarouselItem class="bannerStyle">
+          <iframe *ngIf="a.id_video" class="col-md-12 col-xs-12 thumb" style="height: 300px;" [src]="domSanitizerYoutube(a.url)" frameborder="0" allowfullscreen></iframe>
+          <img *ngIf="a.id_album" class="col-md-12 col-xs-12 thumb" style="height: 300px;" [src]="domSanitizer('http://localhost:3000/static/'+a.url)" frameborder="0" />
+          <h4 class="title">{{a.text}}</h4>
+          <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
+        </ngu-item>
+        <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-left"></fa></button>
+        <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-right"></fa></button>
+      </ngu-carousel>
+    </div>
+  </section>
+  <section class="agenda" *ngIf="agenda.length > 0">
+    <div class="text">PRÓXIMOS SHOWS</div>
+    <ngu-carousel
+      [inputs]="carouselBanner"
+      [moveToSlide]="1"
+      (onMove)="onmoveFn($event)">
+      <ngu-item *ngFor="let a of agenda" NguCarouselItem class="bannerStyle">
+        <h2>{{a.localizacao}}</h2>
+        <h4>{{a.data | date:'dd/MM/yyyy'}}</h4>
+      </ngu-item>
+      <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-left"></fa></button>
+      <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-right"></fa></button>
+    </ngu-carousel>
+  </section>
+  <section class="contato col-md-12 col-xs-12">
+    <img src="assets/template/img/logo-angelo-thiago.fw.png" />
+    <h1>Contato</h1>
+    <article>
+      <div class="left col-md-6 col-xs-12">
+        <form class="form-group" (ngSubmit)="enviaContato()">
+          <div class="input-group">
+            <label for="nome">Nome:</label>
+            <input id="nome" name="nome" [(ngModel)]="contato.nome"/>
+          </div>
+          <div class="input-group">
+            <label for="email">Email:</label>
+            <input id="email" name="email" [(ngModel)]="contato.email"/>
+          </div>
+          <div class="input-group">
+            <label for="assunto">Assunto:</label>
+            <input id="assunto" name="assunto" [(ngModel)]="contato.assunto"/>
+          </div>
+          <div class="input-group">
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="10" [(ngModel)]="contato.mensagem"></textarea>
+          </div>
+          <div class="input-group">
+            <button>Enviar</button>
+          </div>
+        </form>
+      </div>
+      <div class="right col-md-6 col-xs-12">
+        <div>
+          <h3>Contato para Shows:</h3>
+          <br/>
+          <span *ngIf="telefones.length > 0">
+            <b>Telefones / Celulares:</b>
+            <br/>
+            <div *ngFor="let t of telefones">{{t.telefone}}</div>
+            <br/>
+          </span>
+          <span *ngIf="emails.length > 0">
+            <b>E-Mails:</b>
+            <br/>
+            <div *ngFor="let e of emails"><a href="mailto:{{e.email}}">{{e.email}}</a></div>
+            <br/>
+          </span>
+          <span *ngIf="endereco"><b>Endereço:</b> {{endereco}}</span>
+          <br>
+          <a href="{{instagram}}"><img *ngIf="instagram" src="assets/template/img/icon-instagram.fw.png"/></a>
+          <a href="{{twitter}}"><img *ngIf="twitter" src="assets/template/img/icone-twitter.fw.png"/></a>
+          <a href="{{youtube}}"><img *ngIf="youtube" src="assets/template/img/icone-youtube.fw.png"/></a>
+          <a href="{{facebook}}"><img *ngIf="facebook" src="assets/template/img/icone-facebook.fw.png"/></a>
+          <a href="{{spotify}}"><img *ngIf="spotify" src="assets/template/img/icone-spotffi.fw.png"/></a>
+        </div>
+      </div>
+    </article>
+  </section>
+  <footer class="site">
+    <span>Copyright &copy;2017 Todos os Direitos Reservados a <a href="localhost:4200">Angelo&Thiago</a></span>
+    <div><a href="https://www.fuston.com.br/" target="_blank"><img src="assets/template/img/logo-fuston.fw.png" /></a></div>
+  </footer>
+</body>

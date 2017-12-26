@@ -1,0 +1,56 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Novo Álbum</h4>
+                        <p class="category">Insira um novo álbum.</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="salvarAlbum()" autocomplete="off" method="POST" id="formAlbum" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-9 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Local</label>
+                                        <input #inputAlbumLocal required type="text" class="form-control" placeholder="Ex.: São Paulo / Campinas" name="local" id="local">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Data</label>
+                                        <input #inputAlbumData required type="date" class="form-control" name="data" id="data">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Álbum</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-xs-6" *ngFor="let a of albuns">
+                <div class="card">
+                    <div class="header">
+                        <button class="btn btn-info btn-fill pull-right" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" (click)="verAlbum(a.id_album, a.local, a.data)"><fa name="eye"></fa></button>
+                        <button class="btn btn-danger btn-fill pull-right" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" (click)="deleteAlbum(a.id_album, a.id)"><fa name="close"></fa></button>
+                        <h4 class="title">{{a.local}}</h4>
+                        <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                          <img class="col-md-12 col-xs-12 thumb" [src]="(a.primeira_foto) ? domSanitizer('http://localhost:3000/static/'+a.primeira_foto) : domSanitizer('http://localhost:3000/static/'+'uploads/empty.png')" frameborder="0" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

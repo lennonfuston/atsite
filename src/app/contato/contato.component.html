@@ -1,0 +1,90 @@
+<div class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12 col-xs-12">
+              <div class="card">
+                  <div class="header">
+                      <h4 class="title">Endereço</h4>
+                      <p class="category">Insira o Endereço.</p>
+                  </div>
+                  <div class="content">
+                      <form #end="ngForm" (ngSubmit)="salvarEndereco(end)" autocomplete="off">
+                          <div class="row">
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="form-group">
+                                      <label>Endereço:</label>
+                                      <input type="text" [(ngModel)]="endereco" name="endereco" required class="form-control">
+                                  </div>
+                              </div>
+                          </div>
+                          <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Endereço</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6 col-xs-12">
+              <div class="card">
+                  <div class="header">
+                      <h4 class="title">Telefones</h4>
+                      <p class="category">Insira os telefones.</p>
+                  </div>
+                  <div class="content">
+                      <form #f="ngForm" (ngSubmit)="salvarTelefones(f)" autocomplete="off">
+                          <button type="button" class="btn btn-success btn-fill" (click)="createTel()"><fa name="plus"></fa></button>
+                          <br>
+                          <br>
+                          <div class="row" *ngFor="let t of telefones; let i = index">
+                              <div class="col-md-8 col-xs-10">
+                                  <div class="form-group">
+                                      <label>Telefone:</label>
+                                      <input type="tel" [ngModelOptions]="{standalone: true}" [(ngModel)]="telefones[i].telefone" required class="form-control">
+                                  </div>
+                              </div>
+                              <div class="col-md-4 col-xs-2">
+                                  <div class="form-group">
+                                      <label>Deletar Telefone</label>
+                                      <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteTel(i)"><fa name="minus"></fa></button>
+                                  </div>
+                              </div>
+                          </div>
+                          <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Telefones</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">E-mails</h4>
+                    <p class="category">Insira os E-mails.</p>
+                </div>
+                <div class="content">
+                  <form #e="ngForm" (ngSubmit)="salvarEmails(e)" autocomplete="off">
+                    <button type="button" class="btn btn-success btn-fill" (click)="createEmail()"><fa name="plus"></fa></button>
+                    <br>
+                    <br>
+                    <div class="row" *ngFor="let e of emails; let i = index">
+                        <div class="col-md-8 col-xs-10">
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" [ngModelOptions]="{standalone: true}" [(ngModel)]="emails[i].email" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-2">
+                            <div class="form-group">
+                                <label>Deletar E-mail</label>
+                                <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteEmail(i)"><fa name="minus"></fa></button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Emails</button>
+                    <div class="clearfix"></div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

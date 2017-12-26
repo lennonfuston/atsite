@@ -1,0 +1,78 @@
+* {margin: 0; padding: 0; font-family: 'Open Sans', sans-serif;}
+
+.body-site {background-image: url('../img/background-biografia.fw.png'); background-repeat: no-repeat; background-attachment: fixed; background-position: center;}
+
+#goTop {border: 2px solid transparent; border-radius: 2px; position: fixed; bottom: 10px; right: 10px; padding: 5px 10px; font-size: 20px; color: white; background-color: #000000; z-index: 9999999; cursor: pointer;}
+#goTop:hover {border: 2px solid #333;}
+
+header {width: 100%; height: 100vh; background-image: url('../img/backgroud-inicio.fw.png'); background-size: cover; background-position: right, bottom; position: relative;}
+header .icons {position: absolute; top: 100px; right: 10px; display: grid; text-align: right;}
+header .icons img { border-radius: 5px; transition-duration: 1s; transition-property: border; border: 2px solid rgba(0,0,0,0); width: 50px; height: 50px; margin-bottom: 5px;}
+header .icons img:hover {border: 2px solid #CCCCCC; cursor: pointer;}
+header .text {transition-duration: 1s; transition-property: top; padding: 5px 15px; background-color: rgba(0,0,0,0.75); font-size: 40px; color: white; position: absolute; top: 50%; left: 25px; transform: translateY(-50%);}
+header nav {transition: 0.5s; transition-property: height background-color; display: flex; padding: 5px; position: fixed; height: 100px; z-index: 9999; width: 100%; text-align: center;}
+header nav .logo {transition: 1s; transition-property: width, height, padding; width: 250px; height: 100px; padding: 10px;}
+header nav ul {flex: 1.5; padding-left: 50px;}
+header nav ul li {border-bottom: 2px solid rgba(0,0,0,0); padding: 30px 2px 10px 2px; transition-duration: 0.5s, 0.5s; transition-property: border, padding; display: inline-block; margin-right: 40px; color: white;}
+header nav ul li:hover {cursor: pointer; border-bottom: 2px solid #FFFFFF; padding: 30px 2px 2px 2px;}
+header nav.scrolled {background-color: rgba(0,0,0,0.90); height: 75px;}
+header nav.scrolled .logo {width: 150px; height: 75px; padding: 15px;}
+
+section.biografia {position: relative; padding-top: 175px; padding-bottom: 25px;}
+section.biografia img {position: absolute; top: 40px; left: 40px;}
+section.biografia .content {text-align: center;}
+section.biografia .content h1 {font-size: 50px; color: white; font-weight: 100;}
+section.biografia .content textarea {color: white; background-color: transparent; border: none; width: 50%; resize: none; text-align: justify; padding: 10px;}
+section.biografia .content textarea:focus {border:none; outline: none !important;}
+section.biografia .content textarea::-webkit-scrollbar { width: 12px; }
+section.biografia .content textarea::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.3); border-radius: 10px; }
+section.biografia .content textarea::-webkit-scrollbar-thumb { box-shadow: inset 0 0 6px rgba(0,0,0,0.5); border-radius: 10px; }
+
+section.musica {padding-left: 25px; padding-right: 25px; background-image: url('../img/background-musica.fw.png'); background-position: left top; position: relative; padding-top: 75px; padding-bottom: 75px; display: flex;}
+section.musica .left {flex: 1;}
+section.musica .right {flex: 1; text-align: center;}
+section.musica .right h1 {text-align: center; font-size: 50px; color: white; font-weight: 100;}
+
+section.entre-contato {padding: 50px; text-align: center; color: white;}
+section.entre-contato h1 {font-size: 40px;}
+section.entre-contato h2 {font-size: 25px;}
+
+section.galeria {padding: 50px; text-align: center; color: white; background-color: #1C2F3D; position: relative;}
+section.galeria .header {display: block; position: relative;}
+section.galeria .header hr {position: absolute; width: 100%; top: 50%; transform: translateY(-50%);}
+section.galeria .header h1 {font-size: 40px; position: absolute; top: 50%; left: 50%; transform: translate3D(-50%, -50%, 0); background-color: #1C2F3D; padding: 0 15px;}
+section.galeria .content {margin-top: 75px;}
+
+section.agenda {background-image: url('../img/background-agenda.fw.png'); background-position: left top; position: relative; padding-left: 50px; padding-right: 50px; padding-top: 75px; padding-bottom: 75px; text-align: center; color: white;}
+section.agenda .text {background-color: rgba(0,0,0,0.75); padding: 5px 40px; font-size: 40px; width: 500px; margin-bottom: 50px;}
+
+section.contato {padding: 50px; text-align: center; color: white; background-color: #000000; position: relative;}
+section.contato > img {position: absolute; bottom: 20px; right: 20px; width: 400px; opacity: 0.10;}
+section.contato h1 {font-size: 40px;}
+section.contato article .left {flex: 1; text-align: left; padding: 25px;}
+section.contato article .left .form-group .input-group {display: block; margin-bottom: 10px;}
+section.contato article .left .form-group .input-group label {display: block; font-weight: bold; font-size: 18px; margin-bottom: 5px;}
+section.contato article .left .form-group .input-group input {padding-left: 10px; color: #333333; display: block; background-color: #FFFFFF; border: none; line-height: 50px; width: 100%;}
+section.contato article .left .form-group .input-group textarea {padding: 10px; color: #333333; resize: none; display: block; background-color: #FFFFFF; border: none; width: 100%;}
+section.contato article .left .form-group .input-group button {padding: 10px 60px; background-color: #1C2F3D; border: none; color: white; font-weight: bold; float: right; cursor: pointer;}
+section.contato article .right {flex: 1; text-align: left; padding: 25px;}
+section.contato article .right div a img {margin-top: 50px; border-radius: 5px; transition-duration: 1s; transition-property: border; border: 2px solid rgba(0,0,0,0); width: 50px; height: 50px; margin-bottom: 5px;}
+section.contato article .right div a img:hover {border: 2px solid #CCCCCC; cursor: pointer;}
+
+
+footer.site {padding: 50px 50px 10px 50px; text-align: left; color: white; background-color: #000000; position: relative; display: flex;}
+footer.site span {flex: 1; text-align: left;}
+footer.site div {flex: 1; text-align: right; padding-right: 50px;}
+
+@media screen and (max-width: 885px) {
+    header .text {top: 100%; transform: translateY(-130%);}
+    
+    header nav ul {display: none;}
+    header nav.scrolled ul {display: none;}
+    section.biografia .content textarea {width: 80%;}
+
+    section.musica {display: block; padding-left: 25px; padding-right: 25px;}
+    section.musica .left {display: none;}
+    section.musica .right {width: 100%;}
+    section.musica .right iframe {width: 100%;}
+}

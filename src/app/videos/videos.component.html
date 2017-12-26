@@ -1,0 +1,61 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Novo Vídeo</h4>
+                        <p class="category">Insira um novo vídeo.</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="salvarVideo()" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Título</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: Novidade do dia" name="titulo" [(ngModel)]="video.titulo">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label>Data</label>
+                                        <input required type="date" class="form-control" name="data" [(ngModel)]="video.data">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="form-group">
+                                        <label>Link</label>
+                                        <input required type="text" class="form-control" placeholder="Ex.: https://www.youtube.com/watch?v=5yuiqvWAPnE" name="link" [(ngModel)]="video.link">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Vídeo</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-xs-6" *ngFor="let v of videos">
+                <div class="card">
+                    <div class="header">
+                        <button class="btn btn-danger btn-fill pull-right" (click)="deleteVideo(v.id_video, v.id)"><fa name="close"></fa></button>
+                        <h4 class="title">{{v.titulo}}</h4>
+                        <p class="category">{{v.data | date : 'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <iframe class="col-md-12 col-xs-12" [src]="domSanitizer(v.link)" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
