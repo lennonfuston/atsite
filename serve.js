@@ -31,6 +31,9 @@ const con = mysql.createConnection({
   user: "angeloet_root",
   password: "angelo1234",
   database: 'angeloet_atsite'
+  // user: "root",
+  // password: "1234",
+  // database: 'atsite'
 });
 
 const port = 3000;

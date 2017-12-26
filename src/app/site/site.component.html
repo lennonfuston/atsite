@@ -52,7 +52,7 @@
         (onMove)="onmoveFn2($event)">
         <ngu-item *ngFor="let a of galeria" NguCarouselItem class="bannerStyle">
           <iframe *ngIf="a.id_video" class="col-md-12 col-xs-12 thumb" style="height: 300px;" [src]="domSanitizerYoutube(a.url)" frameborder="0" allowfullscreen></iframe>
-          <img *ngIf="a.id_album" class="col-md-12 col-xs-12 thumb" style="height: 300px;" [src]="domSanitizer('http://localhost:3000/static/'+a.url)" frameborder="0" />
+          <img *ngIf="a.id_album" class="col-md-12 col-xs-12 thumb" style="height: 300px;" [src]="domSanitizer('http://www.angeloethiago.com.br:3000/static/'+a.url)" frameborder="0" />
           <h4 class="title">{{a.text}}</h4>
           <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
         </ngu-item>

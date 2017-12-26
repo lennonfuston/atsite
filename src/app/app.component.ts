@@ -13,7 +13,7 @@ import { UserService } from './user.service';
 })
 export class AppComponent implements OnInit {
 
-  public serverNode: string = 'http://localhost:3000';
+  public serverNode: string = 'http://www.angeloethiago.com.br:3000';
   public socket: SocketIOClient.Socket;
 
   yearDate: any = new Date().getFullYear();
