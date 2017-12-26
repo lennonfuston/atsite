@@ -28,9 +28,9 @@ const upload = multer({ storage: storage }).single('foto');
 
 const con = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "1234",
-  database: 'atsite'
+  user: "angeloet_root",
+  password: "angelo1234",
+  database: 'angeloet_atsite'
 });
 
 const port = 3000;
