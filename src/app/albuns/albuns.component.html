@@ -13,7 +13,7 @@
                                 <div class="col-md-9 col-xs-12">
                                     <div class="form-group">
                                         <label>Local</label>
-                                        <input #inputAlbumLocal required type="text" class="form-control" placeholder="Ex.: São Paulo / Campinas" name="local" id="local">
+                                        <input #inputAlbumLocal required minlength="62" type="text" class="form-control" placeholder="Ex.: Título do álbum" name="local" id="local">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-xs-12">
@@ -38,8 +38,8 @@
             <div class="col-md-4 col-xs-6" *ngFor="let a of albuns">
                 <div class="card">
                     <div class="header">
-                        <button class="btn btn-info btn-fill pull-right" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" (click)="verAlbum(a.id_album, a.local, a.data)"><fa name="eye"></fa></button>
-                        <button class="btn btn-danger btn-fill pull-right" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" (click)="deleteAlbum(a.id_album, a.id)"><fa name="close"></fa></button>
+                        <button class="btn btn-info btn-fill pull-right" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" (click)="verAlbum(a.id_album, a.local, a.data)"><i class="fa fa-eye"></i></button>
+                        <button class="btn btn-danger btn-fill pull-right" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" (click)="deleteAlbum(a.id_album, a.id)"><i class="fa fa-close"></i></button>
                         <h4 class="title">{{a.local}}</h4>
                         <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
                     </div>

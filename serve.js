@@ -486,6 +486,26 @@ function eventsAlbum(socket) {
       });
     });
   });
+
+  socket.on('editarAlbum', (data) => {
+    con.connect(function(err) {
+      let sql = `UPDATE album SET local = "`+data.albumLocal+`", data = "`+data.albumData+`" WHERE id = "`+data.idAlbum+`"`;
+      con.query(sql, function(err, result) {
+        if(!err){
+          socket.emit('checkFotoResponse', {
+            'descricao': "Sucesso ao editar álbum!",
+            'error': false
+          });
+        }else{
+          console.log("ERROR", err);
+          socket.emit('checkFotoResponse', {
+            'descricao': "Erro ao editar álbum!",
+            'error': true
+          });
+        }
+      });
+    });
+  });
 }
 
 function eventsAlbuns(socket) {
@@ -699,7 +719,7 @@ function eventsGaleria(socket) {
     let sql = '';
     var arr = [[]];
     con.connect(function(err) {
-      sql = `SELECT a.local text, a.data, a.id id_album, 
+      sql = `SELECT a.local text, a.data, a.id id_album, 'fotos', 
       (SELECT u.caminho FROM foto f LEFT JOIN upload u ON f.upload = u.id WHERE f.album = a.id LIMIT 1) as url
       FROM album a`;
       con.query(sql, function(err, result) {
@@ -709,6 +729,13 @@ function eventsGaleria(socket) {
             arr[0].push(result[i]);
           }
         }
+        for(let j = 0; j < arr[0].length; j++) {
+          sql = `SELECT u.caminho small, u.caminho medium, u.caminho big FROM foto f LEFT JOIN upload u ON f.upload = u.id WHERE f.album = `+arr[0][j]['id_album'];
+          con.query(sql, function(err, result) {
+            if(err) { console.log("ERROR", err); return; }
+            arr[0][j].fotos = result;
+          });
+        }
         sql = `SELECT v.titulo text, v.data, v.id id_video, v.link url
         FROM video v`;
         con.query(sql, function(err, result) {
@@ -717,6 +744,7 @@ function eventsGaleria(socket) {
             arr[0].push(result[i]);
           }
           arr[0] = shuffle(arr[0]);
+          console.log('GALERIA', arr);
           socket.emit('checkGaleriaResponse', {
             'descricao': arr[0],
             'error': false

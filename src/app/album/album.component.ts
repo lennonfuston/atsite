@@ -16,9 +16,9 @@ export class AlbumComponent implements OnInit, OnDestroy {
   @ViewChild("inputAlbumFoto") inputAlbumFoto;
 
   album: any = [];
-  albumId: string;
-  albumLocal: string;
-  albumData: string;
+  albumId: any;
+  albumLocal: any;
+  albumData: any;
   canSave: boolean = true;
   private sub: any;
 
@@ -36,7 +36,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(params => {
       this.albumId = params['albumId']; 
       this.albumLocal = params['albumLocal'];
-      this.albumData = params['albumData'];
+      this.albumData = this.App.formatDate(params['albumData']);
     });
 
     this.App.socket.on('checkFotoResponse', (data: any) => {
@@ -66,6 +66,22 @@ export class AlbumComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.value) {
         this.App.socket.emit('deleteFoto', {idFoto: idFoto});
+      }
+    });
+  }
+
+  editarAlbum(idAlbum: any) {
+    swal({
+      title: 'Confirmação!',
+      text: "Deseja editar esse álbum?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Não',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.App.socket.emit('editarAlbum', {idAlbum: idAlbum, albumLocal: this.albumLocal, albumData: this.albumData});
       }
     });
   }

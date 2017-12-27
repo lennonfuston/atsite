@@ -14,7 +14,7 @@
           <div class="col-md-6 col-xs-12" *ngFor="let m of mensagens">
               <div class="card">
                   <div class="header">
-                      <button class="btn btn-danger btn-fill pull-right" (click)="deleteMensagem(m.id)"><fa name="close"></fa></button>
+                      <button class="btn btn-danger btn-fill pull-right" (click)="deleteMensagem(m.id)"><i class="fa fa-close"></i></button>
                       <h4 class="title">{{m.nome}}</h4>
                       <h5 class="title">{{m.assunto}}</h5>
                       <p class="category"><a href="mailto:{{m.email}}">{{m.email}}</a></p>

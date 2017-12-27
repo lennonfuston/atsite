@@ -13,7 +13,7 @@
                               <div class="col-md-12 col-xs-12">
                                   <div class="form-group">
                                       <label>Endereço:</label>
-                                      <input type="text" [(ngModel)]="endereco" name="endereco" required class="form-control">
+                                      <input placeholder="Rua Teste, N 1000 - Bairro / Cidade - CEP: 00000-000" type="text" [(ngModel)]="endereco" name="endereco" required class="form-control">
                                   </div>
                               </div>
                           </div>
@@ -31,7 +31,7 @@
                   </div>
                   <div class="content">
                       <form #f="ngForm" (ngSubmit)="salvarTelefones(f)" autocomplete="off">
-                          <button type="button" class="btn btn-success btn-fill" (click)="createTel()"><fa name="plus"></fa></button>
+                          <button type="button" class="btn btn-success btn-fill" (click)="createTel()"><i class="fa fa-plus"></i></button>
                           <br>
                           <br>
                           <div class="row" *ngFor="let t of telefones; let i = index">
@@ -44,7 +44,7 @@
                               <div class="col-md-4 col-xs-2">
                                   <div class="form-group">
                                       <label>Deletar Telefone</label>
-                                      <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteTel(i)"><fa name="minus"></fa></button>
+                                      <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteTel(i)"><i class="fa fa-minus"></i></button>
                                   </div>
                               </div>
                           </div>
@@ -62,20 +62,20 @@
                 </div>
                 <div class="content">
                   <form #e="ngForm" (ngSubmit)="salvarEmails(e)" autocomplete="off">
-                    <button type="button" class="btn btn-success btn-fill" (click)="createEmail()"><fa name="plus"></fa></button>
+                    <button type="button" class="btn btn-success btn-fill" (click)="createEmail()"><i class="fa fa-plus"></i></button>
                     <br>
                     <br>
                     <div class="row" *ngFor="let e of emails; let i = index">
                         <div class="col-md-8 col-xs-10">
                             <div class="form-group">
                                 <label>Email:</label>
-                                <input type="email" [ngModelOptions]="{standalone: true}" [(ngModel)]="emails[i].email" required class="form-control">
+                                <input type="email" placeholder="email@email.com" [ngModelOptions]="{standalone: true}" [(ngModel)]="emails[i].email" required class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-2">
                             <div class="form-group">
                                 <label>Deletar E-mail</label>
-                                <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteEmail(i)"><fa name="minus"></fa></button>
+                                <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteEmail(i)"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
                     </div>

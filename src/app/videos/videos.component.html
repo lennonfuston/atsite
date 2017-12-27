@@ -13,7 +13,7 @@
                                 <div class="col-md-6 col-xs-12">
                                     <div class="form-group">
                                         <label>Título</label>
-                                        <input required type="text" class="form-control" placeholder="Ex.: Novidade do dia" name="titulo" [(ngModel)]="video.titulo">
+                                        <input required type="text" class="form-control" placeholder="Ex.: Título do vídeo" name="titulo" [(ngModel)]="video.titulo">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-xs-6">
@@ -44,7 +44,7 @@
             <div class="col-md-4 col-xs-6" *ngFor="let v of videos">
                 <div class="card">
                     <div class="header">
-                        <button class="btn btn-danger btn-fill pull-right" (click)="deleteVideo(v.id_video, v.id)"><fa name="close"></fa></button>
+                        <button class="btn btn-danger btn-fill pull-right" (click)="deleteVideo(v.id_video, v.id)"><i class="fa fa-close"></i></button>
                         <h4 class="title">{{v.titulo}}</h4>
                         <p class="category">{{v.data | date : 'dd/MM/yyyy'}}</p>
                     </div>

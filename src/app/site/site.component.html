@@ -1,6 +1,6 @@
 <body class="body-site">
-  <div id="goTop"><fa name="chevron-up"></fa></div>
-  <header>
+  <div id="goTop"><i class="fa fa-chevron-up"></i></div>
+  <header class="header-nav">
     <nav>
       <img class="logo" src="assets/template/img/logo-angelo-thiago.fw.png"/>
       <ul>
@@ -51,13 +51,15 @@
         [moveToSlide]="1"
         (onMove)="onmoveFn2($event)">
         <ngu-item *ngFor="let a of galeria" NguCarouselItem class="bannerStyle">
-          <iframe *ngIf="a.id_video" class="col-md-12 col-xs-12 thumb" style="height: 300px;" [src]="domSanitizerYoutube(a.url)" frameborder="0" allowfullscreen></iframe>
-          <img *ngIf="a.id_album" class="col-md-12 col-xs-12 thumb" style="height: 300px;" [src]="domSanitizer(App.serverNode+'/static/'+a.url)" frameborder="0" />
-          <h4 class="title">{{a.text}}</h4>
-          <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
+          <iframe *ngIf="a.id_video" class="col-md-12 col-xs-12" style="height: 300px; padding: 0;" [src]="domSanitizerYoutube(a.url)" frameborder="0" allowfullscreen></iframe>
+          <ngx-gallery *ngIf="a.fotos" class="col-md-12 col-xs-12 myNgxGallery" style="height: 300px; padding: 0;" [options]="galleryOptions" [images]="domSanitizerUrlGaleria(a.fotos)" frameborder="0"></ngx-gallery>
+          <div *ngIf="a.id_album" style="z-index: 9991; position: absolute; background-color: rgba(0,0,0,0.5); bottom: 0; left: 0; padding: 0 10px;">
+            <h4 class="title">{{a.text}}</h4>
+            <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
+          </div>
         </ngu-item>
-        <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-left"></fa></button>
-        <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-right"></fa></button>
+        <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-left"></i></button>
+        <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-right"></i></button>
       </ngu-carousel>
     </div>
   </section>
@@ -67,12 +69,17 @@
       [inputs]="carouselBanner"
       [moveToSlide]="1"
       (onMove)="onmoveFn($event)">
-      <ngu-item *ngFor="let a of agenda" NguCarouselItem class="bannerStyle">
+      <ngu-item *ngFor="let a of agenda" NguCarouselItem class="bannerStyle2">
+        <h4>
+          {{a.data | date:'dd'}}
+          <br />
+          <br />
+          {{a.data | date:'MMMM'}}
+        </h4>
         <h2>{{a.localizacao}}</h2>
-        <h4>{{a.data | date:'dd/MM/yyyy'}}</h4>
       </ngu-item>
-      <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-left"></fa></button>
-      <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><fa name="chevron-right"></fa></button>
+      <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-left"></i></button>
+      <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-right"></i></button>
     </ngu-carousel>
   </section>
   <section class="contato col-md-12 col-xs-12">
@@ -104,7 +111,7 @@
       </div>
       <div class="right col-md-6 col-xs-12">
         <div>
-          <h3>Contato para Shows:</h3>
+          <h3>Contato para Shows: <img src="assets/template/img/logo-base-entretenimen.fw.png" /></h3>
           <br/>
           <span *ngIf="telefones.length > 0">
             <b>Telefones / Celulares:</b>
@@ -120,6 +127,7 @@
           </span>
           <span *ngIf="endereco"><b>Endereço:</b> {{endereco}}</span>
           <br>
+          <h3 *ngIf="instagram || twitter || youtube || facebook || spotify">Redes Sociais</h3>
           <a href="{{instagram}}"><img *ngIf="instagram" src="assets/template/img/icon-instagram.fw.png"/></a>
           <a href="{{twitter}}"><img *ngIf="twitter" src="assets/template/img/icone-twitter.fw.png"/></a>
           <a href="{{youtube}}"><img *ngIf="youtube" src="assets/template/img/icone-youtube.fw.png"/></a>

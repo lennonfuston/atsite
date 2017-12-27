@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent } from './app.component';
 import { PainelComponent } from './painel/painel.component';
@@ -21,6 +20,12 @@ import { AlbunsComponent } from './albuns/albuns.component';
 import { MensagensComponent } from './mensagens/mensagens.component';
 import { AlbumComponent } from './album/album.component';
 import { NguCarouselModule } from '@ngu/carousel';
+
+import { NgxGalleryModule } from 'ngx-gallery';
+
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr)
 
 @NgModule({
   declarations: [
@@ -41,8 +46,8 @@ import { NguCarouselModule } from '@ngu/carousel';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule,
     NguCarouselModule,
+    NgxGalleryModule,
     RouterModule.forRoot([
       {path: '', component: SiteComponent, pathMatch: 'full'},
       {path: 'login', component: LoginComponent},
@@ -58,7 +63,8 @@ import { NguCarouselModule } from '@ngu/carousel';
   ],
   providers: [
     UserService,
-    AuthGuard
+    AuthGuard,
+    { provide: LOCALE_ID, useValue: 'pt-PT' }
   ],
   bootstrap: [AppComponent]
 })

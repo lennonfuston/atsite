@@ -4,7 +4,7 @@ import * as io from 'socket.io-client';
 import { LoginComponent } from './login/login.component';
 import swal from 'sweetalert2';
 import { UserService } from './user.service';
-
+import 'hammerjs';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,7 @@ import { UserService } from './user.service';
 export class AppComponent implements OnInit {
 
   public serverNode: string = 'http://149.56.74.5:3000';
+  // public serverNode: string = 'http://127.0.0.1:3000';
   public socket: SocketIOClient.Socket;
 
   yearDate: any = new Date().getFullYear();
@@ -26,6 +27,13 @@ export class AppComponent implements OnInit {
    this.title = 'Angelo&Thiago';
    this.currentUrl = '';
    this.countmessages = '';
+  }
+
+  formatDate(date: any) {
+    let thisDate = new Date(date);
+    let day = (thisDate.getDate() < 10) ? '0'+thisDate.getDate() : thisDate.getDate();
+    let month = ((thisDate.getMonth()+1) < 10) ? '0'+(thisDate.getMonth()+1) : (thisDate.getMonth()+1);
+    return thisDate.getFullYear()+'-'+month+'-'+day;
   }
 
   goTo(url:Array<any>, name:string = null){

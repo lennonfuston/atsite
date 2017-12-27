@@ -4,7 +4,7 @@ import { UserService } from '../user.service';
 import swal from 'sweetalert2';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
-import * as Hammer from 'hammerjs';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import 'hammerjs';
 declare var jquery:any;
 declare var $ :any;
@@ -15,6 +15,8 @@ declare var $ :any;
   styleUrls: ['./site.component.css']
 })
 export class SiteComponent implements OnInit {
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
 
   urlCache = new Map<string, SafeResourceUrl>();
 
@@ -41,73 +43,48 @@ export class SiteComponent implements OnInit {
   constructor(App: AppComponent, private user: UserService, private sanitizer: DomSanitizer) {this.App = App;}
 
   eventsJquery() {
-    $(window).scroll(function (event) {
-      if($(window).scrollTop() > 0) {
-        $('nav').addClass("scrolled");
-      } else {
-        $('nav').removeClass("scrolled");
-      }
-    });
-    $("#goTop").click(function(e){
-      e.preventDefault();
-      window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
+    $( document ).ready(function() {
+      $(window).scroll(function (event) {
+        if($(window).scrollTop() > 0) {
+          $('nav').addClass("scrolled");
+        } else {
+          $('nav').removeClass("scrolled");
+        }
       });
-    });
-    $("#inicio-anchor").click(function(e){
-      e.preventDefault();
-      var togo = $('header');
-      window.scroll({
-        top: togo,
-        left: 0,
-        behavior: 'smooth'
+      $("#goTop").click(function(e){
+        e.preventDefault();
+        var togo = $('.header-nav')[0];
+        togo.scrollIntoView({behavior:"smooth"});
       });
-    });
-    $("#biografia-anchor").click(function(e){
-      e.preventDefault();
-      var togo = $('.biografia')[0].offsetTop - 75;
-      window.scroll({
-        top: togo,
-        left: 0,
-        behavior: 'smooth'
+      $("#inicio-anchor").click(function(e){
+        e.preventDefault();
+        var togo = $('.header-nav')[0];
+        togo.scrollIntoView({behavior:"smooth"});
       });
-    });
-    $("#musica-anchor").click(function(e){
-      e.preventDefault();
-      var togo = $('.musica')[0].offsetTop - 75;
-      window.scroll({
-        top: togo,
-        left: 0,
-        behavior: 'smooth'
+      $("#biografia-anchor").click(function(e){
+        e.preventDefault();
+        var togo = $('.biografia')[0];
+        togo.scrollIntoView({behavior:"smooth"});
       });
-    });
-    $("#galeria-anchor").click(function(e){
-      e.preventDefault();
-      var togo = $('.galeria')[0].offsetTop - 75;
-      window.scroll({
-        top: togo,
-        left: 0,
-        behavior: 'smooth'
+      $("#musica-anchor").click(function(e){
+        e.preventDefault();
+        var togo = $('.musica')[0];
+        togo.scrollIntoView({behavior:"smooth"});
       });
-    });
-    $("#agenda-anchor").click(function(e){
-      e.preventDefault();
-      var togo = $('.agenda')[0].offsetTop - 75;
-      window.scroll({
-        top: togo,
-        left: 0,
-        behavior: 'smooth'
+      $("#galeria-anchor").click(function(e){
+        e.preventDefault();
+        var togo = $('.galeria')[0];
+        togo.scrollIntoView({behavior:"smooth"});
       });
-    });
-    $("#contato-anchor").click(function(e){
-      e.preventDefault();
-      var togo = $('.contato')[0].offsetTop - 75;
-      window.scroll({
-        top: togo,
-        left: 0,
-        behavior: 'smooth'
+      $("#agenda-anchor").click(function(e){
+        e.preventDefault();
+        var togo = $('.agenda')[0];
+        togo.scrollIntoView({behavior:"smooth"});
+      });
+      $("#contato-anchor").click(function(e){
+        e.preventDefault();
+        var togo = $('.contato')[0];
+        togo.scrollIntoView({behavior:"smooth"});
       });
     });
   }
@@ -163,8 +140,38 @@ export class SiteComponent implements OnInit {
     // must use feature to all carousel
   }
 
+  domSanitizerUrlGaleria(arr) {
+    let serv = this.App.serverNode+'/static/';
+    for(let i = 0; i < arr.length; i++) {
+      arr[i].small = serv+''+arr[i].small;
+      arr[i].medium = serv+''+arr[i].medium;
+      arr[i].big = serv+''+arr[i].big;
+    }
+    return arr;
+  }
+
   ngOnInit() {
-    this.eventsJquery();
+    this.galleryOptions = [
+      { "previewCloseOnClick": false, "previewCloseOnEsc": true, "previewZoom": true, "previewFullscreen": true, "previewKeyboardNavigation": true, "imageAutoPlay": true, "imageAutoPlayPauseOnHover": true, "thumbnails": false, "width": "100%", "height": "300px", "imageArrows": false, "imageSwipe": true, "thumbnailsArrows": false, "thumbnailsSwipe": true, "previewSwipe": true },
+    ];
+    
+    this.galleryImages = [
+      {
+        small: 'assets/template/img/new_logo.png',
+        medium: 'assets/template/img/new_logo.png',
+        big: 'assets/template/img/new_logo.png'
+      },
+      {
+        small: 'assets/template/img/new_logo.png',
+        medium: 'assets/template/img/new_logo.png',
+        big: 'assets/template/img/new_logo.png'
+      },
+      {
+        small: 'assets/template/img/new_logo.png',
+        medium: 'assets/template/img/new_logo.png',
+        big: 'assets/template/img/new_logo.png'
+      }
+    ];
 
     this.carouselBanner = {
       grid: {xs: 2, sm: 2, md: 3, lg: 3, all: 0},
@@ -256,6 +263,7 @@ export class SiteComponent implements OnInit {
 
     this.App.socket.on('checkGaleriaResponse', (data: any) => {
       this.galeria = data.descricao;
+      console.log(this.galeria);
     });
     this.App.socket.emit('checkGaleria');
 
@@ -300,6 +308,8 @@ export class SiteComponent implements OnInit {
       this.telefones = data.descricao;
     });
     this.App.socket.emit('checkTelefones');
+
+    this.eventsJquery();
   }
 
 }

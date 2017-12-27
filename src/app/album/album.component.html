@@ -4,8 +4,24 @@
             <div class="col-md-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">{{albumLocal}}</h4>
-                        <p class="category">{{albumData | date : 'dd/MM/yyyy'}}</p>
+                        <form (ngSubmit)="editarAlbum(albumId)" autocomplete="off" method="POST" id="formAlbum" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-9 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Local</label>
+                                        <input #inputAlbumLocal [(ngModel)]="albumLocal" required minlength="62" type="text" class="form-control" placeholder="Ex.: Título do álbum" name="local" id="local">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Data</label>
+                                        <input #inputAlbumData [(ngModel)]="albumData" required type="date" class="form-control" name="data" id="data">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Editar Álbum</button>
+                            <div class="clearfix"></div>
+                        </form>
                     </div>
                     <div class="content">
                         <form (ngSubmit)="salvarFoto()" autocomplete="off" method="POST" id="formFoto" enctype="multipart/form-data">
@@ -33,7 +49,7 @@
             <div class="col-md-4 col-xs-6" *ngFor="let a of album">
                 <div class="card">
                     <div class="header">
-                        <button class="btn btn-danger btn-fill pull-right" (click)="deleteFoto(a.id)"><fa name="close"></fa></button>
+                        <button class="btn btn-danger btn-fill pull-right" (click)="deleteFoto(a.id)"><i class="fa fa-close"></i></button>
                         <div class="clearfix"></div>
                     </div>
                     <div class="content">

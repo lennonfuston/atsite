@@ -107,7 +107,7 @@
                     </div>
                     <div class="content">
                         <form #f="ngForm" (ngSubmit)="salvarAgenda(f)" autocomplete="off">
-                            <button type="button" class="btn btn-success btn-fill" (click)="createDate()"><fa name="plus"></fa></button>
+                            <button type="button" class="btn btn-success btn-fill" (click)="createDate()"><i class="fa fa-plus"></i></button>
                             <br>
                             <br>
                             <div class="row" *ngFor="let ag of agenda; let i = index">
@@ -126,7 +126,7 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="form-group">
                                         <label>Deletar Data</label>
-                                        <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteDate(i)"><fa name="minus"></fa></button>
+                                        <button type="button" class="form-control btn btn-danger btn-fill" (click)="deleteDate(i)"><i class="fa fa-minus"></i></button>
                                     </div>
                                 </div>
                             </div>
