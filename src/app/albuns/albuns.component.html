@@ -45,7 +45,7 @@
                     </div>
                     <div class="content">
                         <div class="row">
-                          <img class="col-md-12 col-xs-12 thumb" [src]="(a.primeira_foto) ? domSanitizer('http://www.angeloethiago.com.br:3000/static/'+a.primeira_foto) : domSanitizer('http://www.angeloethiago.com.br:3000/static/'+'uploads/empty.png')" frameborder="0" />
+                          <img class="col-md-12 col-xs-12 thumb" [src]="(a.primeira_foto) ? domSanitizer(App.serveNode+'/static/'+a.primeira_foto) : domSanitizer(App.serveNode+'/static/'+'uploads/empty.png')" frameborder="0" />
                         </div>
                         <div class="clearfix"></div>
                     </div>
