@@ -13,7 +13,7 @@ import { UserService } from './user.service';
 })
 export class AppComponent implements OnInit {
 
-  public serverNode: string = '149.56.74.5:3000';
+  public serverNode: string = 'http://149.56.74.5:3000';
   public socket: SocketIOClient.Socket;
 
   yearDate: any = new Date().getFullYear();

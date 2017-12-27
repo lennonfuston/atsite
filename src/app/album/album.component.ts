@@ -87,7 +87,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
         if (fileCount > 0) {
           formData.append('foto', inputEl.files.item(0));
           formData.append('albumId', this.albumId );
-          this.http.post("http://127.0.0.1:3000/upload/foto", formData).subscribe(
+          this.http.post(this.App.serverNode+"/upload/foto", formData).subscribe(
             (data) => {},
             (err) => {console.error(err);}
           )

@@ -27,7 +27,8 @@ const upload = multer({ storage: storage }).single('foto');
 
 
 const con = mysql.createConnection({
-  host: "localhost",
+  host: "angeloethiago.com.br",
+  port: 3306,
   user: "angeloet_root",
   password: "angelo1234",
   database: 'angeloet_atsite'
@@ -79,6 +80,7 @@ function eventsRedesocial(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM info WHERE tipo = "y" OR tipo = "f" OR tipo = "s" OR tipo = "i" OR tipo = "t"';
       con.query(sql, function (err, result) {
+        if(err) return;
         socket.emit('checkRedesocialResponse', {
           'descricao': result,
           'error': false
@@ -131,6 +133,7 @@ function eventsCabecalho(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM info WHERE tipo = "c"';
       con.query(sql, function (err, result) {
+        if(err) return;
         socket.emit('checkCabecalhoResponse', {
           'descricao': result[0],
           'error': false
@@ -163,6 +166,7 @@ function eventsBiografia(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM info WHERE tipo = "b"';
       con.query(sql, function (err, result) {
+        if(err) return;
         socket.emit('checkBiografiaResponse', {
           'descricao': result[0],
           'error': false
@@ -177,6 +181,7 @@ function eventsAgenda(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM agenda WHERE id > 0';
       con.query(sql, function (err, result) {
+        if(err) return;
         for(let i = 0; i < result.length; i++) {
           let thisDate = new Date(result[i].data);
 
@@ -235,6 +240,7 @@ function eventsTelefones(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM telefone WHERE id > 0';
       con.query(sql, function (err, result) {
+        if(err) return;
         socket.emit('checkTelefonesResponse', {
           'descricao': result,
           'error': false
@@ -279,6 +285,7 @@ function eventsEmails(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM email WHERE id > 0';
       con.query(sql, function (err, result) {
+        if(err) return;
         socket.emit('checkEmailsResponse', {
           'descricao': result,
           'error': false
@@ -323,6 +330,7 @@ function eventsEndereco(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM endereco WHERE id > 0';
       con.query(sql, function (err, result) {
+        if(err) return;
         socket.emit('checkEnderecoResponse', {
           'descricao': result[0],
           'error': false
@@ -637,6 +645,7 @@ function eventsMensagens(socket) {
     con.connect(function(err) {
       let sql = 'SELECT * FROM contato';
       con.query(sql, function (err, result) {
+        if(err) return;
         socket.emit('mensagemResponse', {
           'descricao': result,
           'error': false
