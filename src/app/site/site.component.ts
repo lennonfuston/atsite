@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { UserService } from '../user.service';
 import swal from 'sweetalert2';
@@ -15,6 +15,8 @@ declare var $ :any;
   styleUrls: ['./site.component.css']
 })
 export class SiteComponent implements OnInit {
+  @ViewChild('sideMenu') sideMenu;
+  
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
@@ -42,8 +44,37 @@ export class SiteComponent implements OnInit {
   App: AppComponent;
   constructor(App: AppComponent, private user: UserService, private sanitizer: DomSanitizer) {this.App = App;}
 
+  openMenu(event?) {
+    if(event) event.stopPropagation();
+    
+    if(this.sideMenu.nativeElement.className == 'mobile open') {
+      this.sideMenu.nativeElement.className = 'mobile';
+    } else if(this.sideMenu.nativeElement.className == 'mobile'){
+      this.sideMenu.nativeElement.className = 'mobile open';
+    } else if(this.sideMenu.nativeElement.className == 'mobile scrolled'){
+      this.sideMenu.nativeElement.className = 'mobile open scrolled';
+    } else if(this.sideMenu.nativeElement.className == 'mobile open scrolled'){
+      this.sideMenu.nativeElement.className = 'mobile scrolled';
+    }
+  }
+
+  closeMenu() {
+    if(this.sideMenu.nativeElement.className == 'mobile open') {
+      this.sideMenu.nativeElement.className = 'mobile';
+    } else if(this.sideMenu.nativeElement.className == 'mobile open scrolled'){
+      this.sideMenu.nativeElement.className = 'mobile scrolled';
+    }
+  }
+
   eventsJquery() {
-    $( document ).ready(function() {
+    $( document ).ready(() => {
+      $('.body-site').click((e) => {
+        e.preventDefault();
+        let mobileNav = $('.body-site nav[_ngcontent-c1].mobile');
+        if(mobileNav.attr('class') == 'mobile open' || mobileNav.attr('class') == 'mobile open scrolled') {
+          this.closeMenu();
+        }
+      });
       $(window).scroll(function (event) {
         if($(window).scrollTop() > 0) {
           $('nav').addClass("scrolled");
@@ -51,41 +82,46 @@ export class SiteComponent implements OnInit {
           $('nav').removeClass("scrolled");
         }
       });
-      $("#goTop").click(function(e){
+      $(".goTop").click(function(e){
         e.preventDefault();
         var togo = $('.header-nav')[0];
         togo.scrollIntoView({behavior:"smooth"});
       });
-      $("#inicio-anchor").click(function(e){
+      $(".inicio-anchor").click(function(e){
         e.preventDefault();
         var togo = $('.header-nav')[0];
         togo.scrollIntoView({behavior:"smooth"});
       });
-      $("#biografia-anchor").click(function(e){
+      $(".biografia-anchor").click(function(e){
         e.preventDefault();
         var togo = $('.biografia')[0];
         togo.scrollIntoView({behavior:"smooth"});
       });
-      $("#musica-anchor").click(function(e){
+      $(".musica-anchor").click(function(e){
         e.preventDefault();
         var togo = $('.musica')[0];
         togo.scrollIntoView({behavior:"smooth"});
       });
-      $("#galeria-anchor").click(function(e){
+      $(".galeria-anchor").click(function(e){
         e.preventDefault();
         var togo = $('.galeria')[0];
         togo.scrollIntoView({behavior:"smooth"});
       });
-      $("#agenda-anchor").click(function(e){
+      $(".agenda-anchor").click(function(e){
         e.preventDefault();
         var togo = $('.agenda')[0];
         togo.scrollIntoView({behavior:"smooth"});
       });
-      $("#contato-anchor").click(function(e){
+      $(".contato-anchor").click(function(e){
         e.preventDefault();
         var togo = $('.contato')[0];
         togo.scrollIntoView({behavior:"smooth"});
       });
+      if($(window).scrollTop() > 0) {
+        $('nav').addClass("scrolled");
+      } else {
+        $('nav').removeClass("scrolled");
+      }
     });
   }
 
@@ -152,7 +188,23 @@ export class SiteComponent implements OnInit {
 
   ngOnInit() {
     this.galleryOptions = [
-      { "previewCloseOnClick": false, "previewCloseOnEsc": true, "previewZoom": true, "previewFullscreen": true, "previewKeyboardNavigation": true, "imageAutoPlay": true, "imageAutoPlayPauseOnHover": true, "thumbnails": false, "width": "100%", "height": "300px", "imageArrows": false, "imageSwipe": true, "thumbnailsArrows": false, "thumbnailsSwipe": true, "previewSwipe": true },
+      {
+        "previewCloseOnClick": false,
+        "previewCloseOnEsc": true,
+        "previewZoom": true,
+        "previewFullscreen": true,
+        "previewKeyboardNavigation": true,
+        "imageAutoPlay": true,
+        "imageAutoPlayPauseOnHover": true,
+        "thumbnails": false,
+        "width": "100%",
+        "height": "300px",
+        "imageArrows": false,
+        "imageSwipe": true,
+        "thumbnailsArrows": false,
+        "thumbnailsSwipe": true,
+        "previewSwipe": true
+      }
     ];
     
     this.galleryImages = [
@@ -173,8 +225,8 @@ export class SiteComponent implements OnInit {
       }
     ];
 
-    this.carouselBanner = {
-      grid: {xs: 2, sm: 2, md: 3, lg: 3, all: 0},
+    this.carouselBanner2 = {
+      grid: {xs: 1, sm: 2, md: 3, lg: 3, all: 0},
       slide: 2,
       speed: 400,
       custom: 'banner',
@@ -215,9 +267,9 @@ export class SiteComponent implements OnInit {
       animation: 'lazy'
     }
 
-    this.carouselBanner2 = {
+    this.carouselBanner = {
       grid: {xs: 2, sm: 2, md: 3, lg: 3, all: 0},
-      slide: 2,
+      slide: 1,
       speed: 400,
       custom: 'banner',
       easing: 'ease-out',

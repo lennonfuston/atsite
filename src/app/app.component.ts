@@ -4,7 +4,6 @@ import * as io from 'socket.io-client';
 import { LoginComponent } from './login/login.component';
 import swal from 'sweetalert2';
 import { UserService } from './user.service';
-import 'hammerjs';
 
 @Component({
   selector: 'app-root',

@@ -1,18 +1,25 @@
 * {margin: 0; padding: 0; font-family: 'Open Sans', sans-serif;}
+
+.full-page {width: 100% !important;}
 .pointer {cursor: pointer;}
 
-.body-site {background-image: url('../img/background-biografia.fw.png'); background-repeat: no-repeat; background-attachment: fixed; background-position: center;}
+.body-site {background-image: url('../img/background-biografia.fw.png'); background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover;}
 
 #goTop {border: 2px solid transparent; border-radius: 2px; position: fixed; bottom: 10px; right: 10px; padding: 5px 10px; font-size: 20px; color: white; background-color: #000000; z-index: 9999999; cursor: pointer;}
 #goTop:hover {border: 2px solid #333;}
+
+.body-site nav[_ngcontent-c1].mobile {padding: 120px 10px; transition-duration: 0.5s; transition-timing-function: ease; transition-property: padding, left; position: fixed; left: -100%; width: 85vw; height: 100vh; z-index: 9999; background-color: #ffffff;}
+.body-site nav[_ngcontent-c1].mobile ul {list-style: none;}
+.body-site nav[_ngcontent-c1].mobile ul li {margin-bottom: 2px; padding: 20px; background-color: #000000; color: white; font-weight: bold; font-size: 18px;}
 
 header {width: 100%; height: 100vh; background-image: url('../img/backgroud-inicio.fw.png'); background-size: cover; background-position: right, bottom; position: relative;}
 header .icons {position: absolute; top: 100px; right: 10px; display: grid; text-align: right;}
 header .icons img { border-radius: 5px; transition-duration: 1s; transition-property: border; border: 2px solid rgba(0,0,0,0); width: 50px; height: 50px; margin-bottom: 5px;}
 header .icons img:hover {border: 2px solid #CCCCCC; cursor: pointer;}
 header .text {transition-duration: 1s; transition-property: top; padding: 5px 15px; background-color: rgba(0,0,0,0.75); font-size: 40px; color: white; position: absolute; top: 75%; left: 25px; transform: translateY(-75%);}
-header nav {transition: 0.5s; transition-property: height background-color; display: flex; padding: 5px; position: fixed; height: 100px; z-index: 9999; width: 100%; text-align: center;}
+header nav {transition: 0.5s; transition-property: height, background-color; display: flex; padding: 5px; position: fixed; height: 100px; z-index: 9999; width: 100%; text-align: center;}
 header nav .logo {transition: 1s; transition-property: width, height, padding; width: 250px; height: 100px; padding: 10px;}
+header nav i.fa-bars {cursor: pointer; display: none; position: absolute; right: 25px; color: white; font-size: 30px;}
 header nav ul {flex: 1.5; padding-left: 50px;}
 header nav ul li {border-bottom: 2px solid rgba(0,0,0,0); padding: 30px 2px 10px 2px; transition-duration: 0.5s, 0.5s; transition-property: border, padding; display: inline-block; margin-right: 40px; color: white;}
 header nav ul li:hover {cursor: pointer; border-bottom: 2px solid #FFFFFF; padding: 30px 2px 2px 2px;}
@@ -41,8 +48,11 @@ section.entre-contato h2 {font-size: 25px;}
 section.galeria {padding: 50px; text-align: center; color: white; background-color: #1C2F3D; position: relative;}
 section.galeria .header {display: block; position: relative;}
 section.galeria .header hr {position: absolute; width: 100%; top: 50%; transform: translateY(-50%);}
-section.galeria .header h1 {font-size: 40px; position: absolute; top: 50%; left: 50%; transform: translate3D(-50%, -50%, 0); background-color: #1C2F3D; padding: 0 15px;}
-section.galeria .content {margin-top: 75px;}
+section.galeria .header h1 {font-size: 40px; position: absolute; top: 50%; left: 50%; transform: translate3D(-50%, -80%, 0); background-color: #1C2F3D; padding: 0 15px;}
+section.galeria .content {margin-top: 75px; height: 300px; overflow-y: auto; border-radius: 5px;}
+section.galeria .content .thumbs {margin: 0 0 0 0; padding-right: 0; padding-left: 0;}
+section.galeria .content .thumbs > div h4 {font-weight: bold; font-size: 14px; margin: 10px 0 5px 0; text-align: left;}
+section.galeria .content .thumbs > div p {font-size: 10px; text-align: right;}
 
 section.agenda {background-image: url('../img/background-agenda.fw.png'); background-position: center; background-size: cover; background-repeat: no-repeat; position: relative; padding-left: 50px; padding-right: 50px; padding-top: 75px; padding-bottom: 75px; text-align: center; color: white;}
 section.agenda .text {background-color: rgba(0,0,0,0.75); padding: 5px 40px; font-size: 40px; width: 500px; margin-bottom: 50px;}
@@ -61,7 +71,6 @@ section.contato article .right div h3 {margin-top: 50px;}
 section.contato article .right div a img {border-radius: 5px; transition-duration: 1s; transition-property: border; border: 2px solid rgba(0,0,0,0); width: 50px; height: 50px; margin-bottom: 5px;}
 section.contato article .right div a img:hover {border: 2px solid #CCCCCC; cursor: pointer;}
 
-
 footer.site {padding: 50px 50px 10px 50px; text-align: left; color: white; background-color: #000000; position: relative; display: flex;}
 footer.site span {flex: 1; text-align: left;}
 footer.site div {flex: 1; text-align: right; padding-right: 50px;}
@@ -69,12 +78,55 @@ footer.site div {flex: 1; text-align: right; padding-right: 50px;}
 @media screen and (max-width: 885px) {
     header .text {top: 100%; transform: translateY(-130%);}
     
+    .body-site nav[_ngcontent-c1].mobile.open { left: 0%; padding: 120px 10px; transition-duration: 0.5s; transition-property: padding, left;}
+    .body-site nav[_ngcontent-c1].mobile.open.scrolled { left: 0%; padding: 85px 10px; transition-duration: 0.5s; transition-property: padding, left;}
+    .body-site nav[_ngcontent-c1].mobile {padding: 120px 10px;}
+    .body-site nav[_ngcontent-c1].mobile.scrolled {padding: 85px 10px;}
+
     header nav ul {display: none;}
     header nav.scrolled ul {display: none;}
+    
+    header nav i.fa-bars {display: block;}
+
     section.biografia .content textarea {width: 80%;}
 
-    section.musica {display: block; padding-left: 25px; padding-right: 25px;}
+    section.musica {display: block;}
     section.musica .left {display: none;}
     section.musica .right {width: 100%;}
     section.musica .right iframe {width: 100%;}
+
+    .bannerStyle2[_ngcontent-c1] {margin-right: 0 !important;}    
+}
+
+@media screen and (max-width: 414px) {
+    section.agenda .text {width: auto;}
+
+    .body-site nav[_ngcontent-c1].mobile.open { left: 0%; padding: 120px 10px; transition-duration: 0.5s; transition-property: padding, left;}
+    .body-site nav[_ngcontent-c1].mobile.open.scrolled { left: 0%; padding: 50px 10px; transition-duration: 0.5s; transition-property: padding, left;}
+    .body-site nav[_ngcontent-c1].mobile {padding: 120px 10px;}
+    .body-site nav[_ngcontent-c1].mobile.scrolled {padding: 50px 10px;}
+
+    header nav.scrolled {height: 40px;}
+    header nav.scrolled .logo {width: 75px; height: 30px; padding: 5px;}
+    header .text {padding: 5px 15px; font-size: 25px; top: 75%; left: 25px;}
+    header nav .logo {transition: 0.5s;}
+
+    section.biografia .content textarea {width: 90%;}
+    section.biografia img {left: 50%; transform: translateX(-50%);}
+
+    section.galeria {padding: 50px 5px;}
+
+    section.musica {padding-top: 25px;}
+
+    section.entre-contato {padding: 25px;}
+    section.contato {padding: 0;}
+    section.contato article .right div h3 {margin-top: 25px;}
+    
+    section.agenda {padding: 50px 5px;}
+    section.agenda .text {font-size: 35px; margin-bottom: 0;}
+
+    .bannerStyle2[_ngcontent-c1] {margin-right: 0 !important;}
+
+    footer.site {padding: 20px;}
+    footer.site div {padding-right: 0;}
 }

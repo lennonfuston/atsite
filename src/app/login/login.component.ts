@@ -79,8 +79,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.inputEl.nativeElement.focus();
   }
 
-  register (myForm: NgForm) {
-    this.login = myForm;
+  register () {
     swal({
       title: 'Carregando!',
       text: 'Logando...',

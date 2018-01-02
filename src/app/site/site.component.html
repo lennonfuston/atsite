@@ -1,15 +1,26 @@
 <body class="body-site">
   <div id="goTop"><i class="fa fa-chevron-up"></i></div>
+  <nav class="mobile" #sideMenu>
+    <ul>
+      <li class="inicio-anchor">Início</li>
+      <li class="biografia-anchor">Biografia</li>
+      <li class="musica-anchor">Musicas</li>
+      <li class="galeria-anchor">Galeria</li>
+      <li class="agenda-anchor">Agenda</li>
+      <li class="contato-anchor">Contato</li>
+    </ul>
+  </nav>
   <header class="header-nav">
     <nav>
+      <i class="fa fa-bars" aria-hidden="true" (click)="openMenu($event)"></i>
       <img class="logo" src="assets/template/img/logo-angelo-thiago.fw.png"/>
       <ul>
-        <li id="inicio-anchor">Início</li>
-        <li id="biografia-anchor">Biografia</li>
-        <li id="musica-anchor">Musicas</li>
-        <li id="galeria-anchor">Galeria</li>
-        <li id="agenda-anchor">Agenda</li>
-        <li id="contato-anchor">Contato</li>
+        <li class="inicio-anchor">Início</li>
+        <li class="biografia-anchor">Biografia</li>
+        <li class="musica-anchor">Musicas</li>
+        <li class="galeria-anchor">Galeria</li>
+        <li class="agenda-anchor">Agenda</li>
+        <li class="contato-anchor">Contato</li>
       </ul>
     </nav>
     <div class="icons">
@@ -46,10 +57,18 @@
       <h1>Galeria</h1>
     </div>
     <div class="content">
-      <ngu-carousel
-        [inputs]="carouselBanner2"
+      <div *ngFor="let a of galeria" class="col-md-4 col-xs-12 thumbs">
+        <iframe *ngIf="a.id_video" class="col-md-12 col-xs-12" style="height: 300px; padding: 0;" [src]="domSanitizerYoutube(a.url)" frameborder="0" allowfullscreen></iframe>
+        <ngx-gallery *ngIf="a.fotos" class="col-md-12 col-xs-12 myNgxGallery" style="height: 300px; padding: 0;" [options]="galleryOptions" [images]="domSanitizerUrlGaleria(a.fotos)" frameborder="0"></ngx-gallery>
+        <div *ngIf="a.id_album" style="z-index: 9991; width: 100%; position: absolute; background-color: rgba(0,0,0,0.5); bottom: 0; left: 0; padding: 0 10px;">
+          <h4 class="title">{{a.text}}</h4>
+          <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
+        </div>
+      </div>
+      <!-- <ngu-carousel
+        [inputs]="carouselBanner"
         [moveToSlide]="1"
-        (onMove)="onmoveFn2($event)">
+        (onMove)="onmoveFn($event)">
         <ngu-item *ngFor="let a of galeria" NguCarouselItem class="bannerStyle">
           <iframe *ngIf="a.id_video" class="col-md-12 col-xs-12" style="height: 300px; padding: 0;" [src]="domSanitizerYoutube(a.url)" frameborder="0" allowfullscreen></iframe>
           <ngx-gallery *ngIf="a.fotos" class="col-md-12 col-xs-12 myNgxGallery" style="height: 300px; padding: 0;" [options]="galleryOptions" [images]="domSanitizerUrlGaleria(a.fotos)" frameborder="0"></ngx-gallery>
@@ -58,17 +77,17 @@
             <p class="category">{{a.data | date : 'dd/MM/yyyy'}}</p>
           </div>
         </ngu-item>
-        <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-left"></i></button>
-        <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-right"></i></button>
-      </ngu-carousel>
+        <button NguCarouselPrev class='leftRs' style="color: black; display: block !important;"><i class="fa fa-chevron-left"></i></button>
+        <button NguCarouselNext class='rightRs' style="color: black; display: block !important;"><i class="fa fa-chevron-right"></i></button>
+      </ngu-carousel> -->
     </div>
   </section>
   <section class="agenda" *ngIf="agenda.length > 0">
     <div class="text">PRÓXIMOS SHOWS</div>
     <ngu-carousel
-      [inputs]="carouselBanner"
+      [inputs]="carouselBanner2"
       [moveToSlide]="1"
-      (onMove)="onmoveFn($event)">
+      (onMove)="onmoveFn2($event)">
       <ngu-item *ngFor="let a of agenda" NguCarouselItem class="bannerStyle2">
         <h4>
           {{a.data | date:'dd'}}
@@ -78,8 +97,8 @@
         </h4>
         <h2>{{a.localizacao}}</h2>
       </ngu-item>
-      <button NguCarouselPrev class='leftRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-left"></i></button>
-      <button NguCarouselNext class='rightRs' style="z-index: 99; color: black; display: block !important;"><i class="fa fa-chevron-right"></i></button>
+      <button NguCarouselPrev class='leftRs' style="color: black; display: block !important;"><i class="fa fa-chevron-left"></i></button>
+      <button NguCarouselNext class='rightRs' style="color: black; display: block !important;"><i class="fa fa-chevron-right"></i></button>
     </ngu-carousel>
   </section>
   <section class="contato col-md-12 col-xs-12">

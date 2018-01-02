@@ -11,6 +11,7 @@ const querystring = require('querystring');
 const formidable = require('formidable');
 const fs = require('fs');
 const cors = require('cors');
+const md5 = require('js-md5');
 
 const multer = require('multer');
 const DIR = './public/uploads/';
@@ -599,12 +600,21 @@ function eventsAlbuns(socket) {
 
 function eventsLogin(socket) {
   socket.on('tryLogin', (data) => {
+    console.log(data);
     con.connect(function(err) {
-      let sql = 'SELECT * FROM usuario WHERE usuario = "'+data.usuario+'" AND senha = "'+data.senha+'"';
+      let sql = 'SELECT * FROM usuario WHERE usuario = "'+data.usuario+'" AND senha = "'+md5(data.senha)+'"';
       con.query(sql, function (err, result) {
         if(err) {
+          console.log("Error", err);
           socket.emit('loginResponse', {
             'descricao': 'Erro ao logar!',
+            'error': true
+          });
+          return;
+        }
+        if(result.length <= 0) {
+          socket.emit('loginResponse', {
+            'descricao': 'Usuario ou senha errado!',
             'error': true
           });
           return;
@@ -744,7 +754,6 @@ function eventsGaleria(socket) {
             arr[0].push(result[i]);
           }
           arr[0] = shuffle(arr[0]);
-          console.log('GALERIA', arr);
           socket.emit('checkGaleriaResponse', {
             'descricao': arr[0],
             'error': false

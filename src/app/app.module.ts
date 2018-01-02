@@ -19,6 +19,7 @@ import { ContatoComponent } from './contato/contato.component';
 import { AlbunsComponent } from './albuns/albuns.component';
 import { MensagensComponent } from './mensagens/mensagens.component';
 import { AlbumComponent } from './album/album.component';
+import { OwlModule } from 'ngx-owl-carousel';
 import { NguCarouselModule } from '@ngu/carousel';
 
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -48,6 +49,7 @@ registerLocaleData(ptBr)
     ReactiveFormsModule,
     NguCarouselModule,
     NgxGalleryModule,
+    OwlModule,
     RouterModule.forRoot([
       {path: '', component: SiteComponent, pathMatch: 'full'},
       {path: 'login', component: LoginComponent},
