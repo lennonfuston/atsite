@@ -66,10 +66,18 @@ section.contato article .left .form-group .input-group label {display: block; fo
 section.contato article .left .form-group .input-group input {padding-left: 10px; color: #333333; display: block; background-color: #FFFFFF; border: none; line-height: 50px; width: 100%;}
 section.contato article .left .form-group .input-group textarea {padding: 10px; color: #333333; resize: none; display: block; background-color: #FFFFFF; border: none; width: 100%;}
 section.contato article .left .form-group .input-group button {padding: 10px 60px; background-color: #1C2F3D; border: none; color: white; font-weight: bold; float: right; cursor: pointer;}
+section.contato article .left .form-group .input-group button:disabled {padding: 10px 60px; background-color: #1C2F3D; border: none; color: white; font-weight: bold; float: right; cursor: not-allowed;}
 section.contato article .right {flex: 1; text-align: left; padding: 25px;}
-section.contato article .right div h3 {margin-top: 50px;}
+section.contato article .right div h3 {margin-top: 50px; position: relative;}
+section.contato article .right div h3 div {background-color: #000000; position: absolute; top: -35px; padding: 0 5px 0 0;}
+section.contato article .right div h3 hr {position: absolute; top: -35px; width: 100%;}
 section.contato article .right div a img {border-radius: 5px; transition-duration: 1s; transition-property: border; border: 2px solid rgba(0,0,0,0); width: 50px; height: 50px; margin-bottom: 5px;}
 section.contato article .right div a img:hover {border: 2px solid #CCCCCC; cursor: pointer;}
+section.contato article .right div .parceiros {text-align: center;}
+section.contato article .right div .parceiros img {padding: 0 30px;}
+section.contato article .right div .material {text-align: left;}
+section.contato article .right div .material button {padding: 10px 20px; font-size: 16px; color: #000000; background-color: white; border:none; font-weight: bold;}
+section.contato article .right div .material button:disabled {cursor: not-allowed;}
 
 footer.site {padding: 50px 50px 10px 50px; text-align: left; color: white; background-color: #000000; position: relative; display: flex;}
 footer.site span {flex: 1; text-align: left;}

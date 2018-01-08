@@ -1,48 +1,15 @@
-.carroussel-agenda {
-    overflow: auto;
-}
-.carroussel-agenda2 {
-    display: -webkit-inline-box;
-}
-.card-agenda {
-    background-color: white;
-    padding: 10px;
-    color: #333333;
-    margin: 5px;
-    width: 400px;
-    flex: 1;
-}
-.card-agenda h2 {
-    margin: 20px 0 40px 0;
-}
-
 .bannerStyle {
     position: relative;
+    padding: 0 20px;
 }
-.bannerStyle h4 {
-    font-size: 16px;
-    margin: 0 0 15px 0;
-    font-weight: bold;
-}
-.bannerStyle p {
-    position: absolute;
-    right: 15px;
-    bottom: 5px;
-    margin: 0;
-    font-size: 8px;
-}
-
-.bannerStyle2 {
-    position: relative;
-}
-.bannerStyle2 h2 {
+.bannerStyle h2 {
     padding: 20px;
     background-color: white;
     color: #000000;
     font-weight: bold;
     font-size: 24px;
 }
-.bannerStyle2 h4 {
+.bannerStyle h4 {
     font-weight: bold;
     font-size: 40px;
     text-transform: uppercase;

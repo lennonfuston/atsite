@@ -8,6 +8,7 @@ import { PainelComponent } from './painel/painel.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { LoginComponent } from './login/login.component';
 import { NoticiaComponent } from './noticia/noticia.component';
+import { MateriaisComponent } from './materiais/materiais.component';
 import { VideosComponent } from './videos/videos.component';
 
 import { RouterModule, Routes } from '@angular/router';
@@ -40,7 +41,8 @@ registerLocaleData(ptBr)
     ContatoComponent,
     AlbunsComponent,
     MensagensComponent,
-    AlbumComponent
+    AlbumComponent,
+    MateriaisComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ registerLocaleData(ptBr)
       {path: 'videos', component: VideosComponent, canActivate: [AuthGuard]},
       {path: 'albuns', component: AlbunsComponent, canActivate: [AuthGuard]},
       {path: 'mensagens', component: MensagensComponent, canActivate: [AuthGuard]},
+      {path: 'materiais', component: MateriaisComponent, canActivate: [AuthGuard]},
       {path: 'album/:albumId/:albumLocal/:albumData', component: AlbumComponent, canActivate: [AuthGuard]},
       {path: '**', redirectTo: '' }
     ])

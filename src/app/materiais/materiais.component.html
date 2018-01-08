@@ -1,0 +1,70 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Novo Material</h4>
+                        <p class="category">Insira um novo material.</p>
+                    </div>
+                    <div class="content">
+                      <form (ngSubmit)="salvarMaterial()" autocomplete="off" method="POST" id="formMaterial" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Nome</label>
+                                    <input required type="text" class="form-control" name="nome" id="nome">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Material</label>
+                                    <input #inputMaterial required type="file" class="form-control" name="material" id="material">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="!canSave" class="btn btn-info btn-fill col-md-12 col-xs-12">Salvar Material</button>
+                        <div class="clearfix"></div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Materiais</h4>
+            <p class="category">Lista dos materias disponíveis para download.</p>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>Link</th>
+                  <th style="text-align: center;">#</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let m of materials; let i = index;">
+                    <td>{{m.id}}</td>
+                    <td>{{m.nome}}</td>
+                    <td><a target="_blank" download [href]="domSanitizer(App.serverNode+'/static/'+m.link)">DOWNLOAD</a></td>
+                    <td style="text-align: center;"><i (click)="deleteMaterial(m.id)" class="fa fa-close pointer" aria-label="hidden"></i></td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

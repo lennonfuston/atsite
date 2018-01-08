@@ -29,6 +29,7 @@ export class SiteComponent implements OnInit {
   emails: Array<any> = [];
   telefones: Array<any> = [];
   contato: any = {nome: '', email: '', assunto: '', mensagem: ''};
+  materials: any = [];
 
   youtube: string;
   instagram: string;
@@ -42,7 +43,32 @@ export class SiteComponent implements OnInit {
   public carouselBanner2: NguCarousel;
   
   App: AppComponent;
-  constructor(App: AppComponent, private user: UserService, private sanitizer: DomSanitizer) {this.App = App;}
+  constructor(App: AppComponent, private el: ElementRef, private user: UserService, private sanitizer: DomSanitizer) {this.App = App;}
+
+  open() {
+    this.App.socket.emit("checkMaterial");
+    // ABRIR MODAL COM LINKS PARA DOWNLOAD DE MATERIAIS
+  }
+
+  enviaContato() {
+    swal({
+      title: 'Confirmação!',
+      text: "Deseja enviar contato?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Não',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        if(!this.contato['nome']) { swal("Erro!", "Preencha o nome", "error"); return; }
+        if(!this.contato['email']) { swal("Erro!", "Preencha o email", "error"); return; }
+        if(!this.contato['assunto']) { swal("Erro!", "Preencha o assunto", "error"); return; }
+        if(!this.contato['mensagem']) { swal("Erro!", "Preencha a mensagem", "error"); return; }
+        this.App.socket.emit("enviaContato", this.contato);
+      }
+    });
+  }
 
   openMenu(event?) {
     if(event) event.stopPropagation();
@@ -69,7 +95,6 @@ export class SiteComponent implements OnInit {
   eventsJquery() {
     $( document ).ready(() => {
       $('.body-site').click((e) => {
-        e.preventDefault();
         let mobileNav = $('.body-site nav[_ngcontent-c1].mobile');
         if(mobileNav.attr('class') == 'mobile open' || mobileNav.attr('class') == 'mobile open scrolled') {
           this.closeMenu();
@@ -82,7 +107,7 @@ export class SiteComponent implements OnInit {
           $('nav').removeClass("scrolled");
         }
       });
-      $(".goTop").click(function(e){
+      $("#goTop").click(function(e){
         e.preventDefault();
         var togo = $('.header-nav')[0];
         togo.scrollIntoView({behavior:"smooth"});
@@ -144,33 +169,7 @@ export class SiteComponent implements OnInit {
     return url;
   }
 
-  enviaContato() {
-    swal({
-      title: 'Confirmação!',
-      text: "Deseja enviar contato?",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sim',
-      cancelButtonText: 'Não',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        if(!this.contato['nome']) { swal("Erro!", "Preencha o nome", "error"); return; }
-        if(!this.contato['email']) { swal("Erro!", "Preencha o email", "error"); return; }
-        if(!this.contato['assunto']) { swal("Erro!", "Preencha o assunto", "error"); return; }
-        if(!this.contato['mensagem']) { swal("Erro!", "Preencha a mensagem", "error"); return; }
-        this.App.socket.emit("enviaContato", this.contato);
-      }
-    });
-  }
-
   public onmoveFn(event: Event) {
-    // carouselLoad will trigger this funnction when your load value reaches
-    // it is helps to load the data by parts to increase the performance of the app
-    // must use feature to all carousel
-  }
-
-  public onmoveFn2(event: Event) {
     // carouselLoad will trigger this funnction when your load value reaches
     // it is helps to load the data by parts to increase the performance of the app
     // must use feature to all carousel
@@ -206,70 +205,10 @@ export class SiteComponent implements OnInit {
         "previewSwipe": true
       }
     ];
-    
-    this.galleryImages = [
-      {
-        small: 'assets/template/img/new_logo.png',
-        medium: 'assets/template/img/new_logo.png',
-        big: 'assets/template/img/new_logo.png'
-      },
-      {
-        small: 'assets/template/img/new_logo.png',
-        medium: 'assets/template/img/new_logo.png',
-        big: 'assets/template/img/new_logo.png'
-      },
-      {
-        small: 'assets/template/img/new_logo.png',
-        medium: 'assets/template/img/new_logo.png',
-        big: 'assets/template/img/new_logo.png'
-      }
-    ];
-
-    this.carouselBanner2 = {
-      grid: {xs: 1, sm: 2, md: 3, lg: 3, all: 0},
-      slide: 2,
-      speed: 400,
-      custom: 'banner',
-      easing: 'ease-out',
-      point: {
-        visible: false,
-        pointStyles: `
-          .ngucarouselPoint {
-            list-style-type: none;
-            text-align: center;
-            padding: 12px;
-            margin: 0;
-            white-space: nowrap;
-            overflow: auto;
-            position: absolute;
-            width: 100%;
-            bottom: 20px;
-            left: 0;
-            box-sizing: border-box;
-          }
-          .ngucarouselPoint li {
-            display: inline-block;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.55);
-            padding: 5px;
-            margin: 0 3px;
-            transition: .4s ease all;
-          }
-          .ngucarouselPoint li.active {
-              background: white;
-              width: 10px;
-          }
-        `
-      },
-      load: 2,
-      loop: true,
-      touch: true,
-      animation: 'lazy'
-    }
 
     this.carouselBanner = {
-      grid: {xs: 2, sm: 2, md: 3, lg: 3, all: 0},
-      slide: 1,
+      grid: {xs: 1, sm: 2, md: 3, lg: 3, all: 0},
+      slide: 2,
       speed: 400,
       custom: 'banner',
       easing: 'ease-out',
@@ -312,10 +251,8 @@ export class SiteComponent implements OnInit {
     this.App.socket.on('contatoResponse', (data: any) => {
       this.App.responses(data);
     });
-
     this.App.socket.on('checkGaleriaResponse', (data: any) => {
       this.galeria = data.descricao;
-      console.log(this.galeria);
     });
     this.App.socket.emit('checkGaleria');
 
@@ -360,6 +297,15 @@ export class SiteComponent implements OnInit {
       this.telefones = data.descricao;
     });
     this.App.socket.emit('checkTelefones');
+
+    this.App.socket.on('checkMaterialResponse', (data: any) => {
+      this.materials = data.descricao;
+      if(this.materials.length > 0) {
+        $('#modal-1').nifty("show");
+      } else {
+        swal("Informativo", "Não existe no momento materiais para download!", "info");
+      }
+    });
 
     this.eventsJquery();
   }

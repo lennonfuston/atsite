@@ -37,6 +37,12 @@
                         <p>Albuns</p>
                     </a>
                 </li>
+                <li [ngClass]="(currentUrl=='Material')?'active':''">
+                    <a (click)="goTo(['materiais'], 'Material')">
+                        <i class="pe-7s-box1"></i>
+                        <p>Materiais</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -56,20 +62,21 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <p>
                                     <i class="pe-7s-config"></i> 
                                     <span class="hidden-md">Opções</span>
                                     <b class="caret"></b>
                                 </p>
-                                </a>
-                                <ul class="dropdown-menu">
+                            </a>
+                            <ul class="dropdown-menu">
                                 <li>
                                     <span class="notification hidden-sm hidden-xs" *ngIf="countmessages.length > 0">{{countmessages.length}}</span>
-                                    <a style="cursor: pointer;" (click)="goTo(['mensagens'], 'Mensagens')"><i class="pe-7s-paper-plane"></i> Mensagens</a></li>
+                                    <a style="cursor: pointer;" (click)="goTo(['mensagens'], 'Mensagens')"><i class="pe-7s-paper-plane"></i> Mensagens</a>
+                                </li>
                                 <li class="divider"></li>
                                 <li><a (click)="deslogar()" style="cursor: pointer;"><i class="pe-7s-power"></i> Deslogar</a></li>
-                                </ul>
+                            </ul>
                         </li>
                         <li class="separator hidden-lg"></li>
                     </ul>

@@ -25,17 +25,19 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage }).single('foto');
+const uploadMaterial = multer({ storage: storage }).single('material');
 
 
 const con = mysql.createConnection({
-  host: "angeloethiago.com.br",
-  port: 3306,
   user: "angeloet_root",
   password: "angelo1234",
-  database: 'angeloet_atsite'
+  database: 'angeloet_atsite',
+  host: "angeloethiago.com.br",
+  port: 3306,
   // user: "root",
   // password: "1234",
-  // database: 'atsite'
+  // database: 'atsite',
+  // host: "localhost",
 });
 
 const port = 3000;
@@ -600,7 +602,6 @@ function eventsAlbuns(socket) {
 
 function eventsLogin(socket) {
   socket.on('tryLogin', (data) => {
-    console.log(data);
     con.connect(function(err) {
       let sql = 'SELECT * FROM usuario WHERE usuario = "'+data.usuario+'" AND senha = "'+md5(data.senha)+'"';
       con.query(sql, function (err, result) {
@@ -764,6 +765,44 @@ function eventsGaleria(socket) {
   });
 }
 
+function eventsMaterial(socket) {
+  socket.on('checkMaterial', (data) => {
+    con.connect(function(err) {
+      let sql = `SELECT m.id, m.nome, u.caminho link FROM material m LEFT JOIN upload u ON m.upload = u.id`;
+      con.query(sql, function(err, result) {
+        if(!err){
+          socket.emit('checkMaterialResponse', {
+            'descricao': result,
+            'error': false
+          });
+        }else{
+          console.log("ERROR", err);
+        }
+      });
+    });
+  });
+
+  socket.on('deleteMaterial', (data) => {
+    con.connect(function(err) {
+      let sql = `DELETE FROM material WHERE id = "`+data.idMaterial+`"`;
+      con.query(sql, function(err, result) {
+        if(!err){
+          socket.emit('materialResponse', {
+            'descricao': "Sucesso ao deletar material!",
+            'error': false
+          });
+        }else{
+          console.log("ERROR", err);
+          socket.emit('materialResponse', {
+            'descricao': "Erro ao deletar material!",
+            'error': true
+          });
+        }
+      });
+    });
+  });
+}
+
 io.on('connection', (socket) => {
   console.log('Novo cliente: ', socket.id);
 
@@ -781,6 +820,7 @@ io.on('connection', (socket) => {
   eventsVideo(socket);
   eventsAlbuns(socket);
   eventsAlbum(socket);
+  eventsMaterial(socket);
 
   //create a cors middleware
   app.use(function(req, res, next) {
@@ -836,6 +876,57 @@ io.on('connection', (socket) => {
             });
             socket.broadcast.emit('checkFotoResponse', {
               'descricao': 'Sucesso ao inserir foto!',
+              'error': false
+            });
+          });
+        });
+      });
+
+    });
+  });
+
+  app.post("/upload/material", function(req, res, next) {
+    var path = '';
+    uploadMaterial(req, res, function (err) {
+      if (err) {
+        console.log('ERROR: ',err);
+        return;
+      }
+      path = req.file.path;
+      var start = path.substr(path.lastIndexOf('public') + 7);
+      con.connect(function(err) {
+        let sql = 'INSERT INTO upload (caminho) VALUES ("'+start+'")';
+        con.query(sql, function(err, result) {
+          if(err){
+            socket.emit('materialResponse', {
+              'descricao': 'Erro ao inserir material!',
+              'error': true
+            });
+            socket.broadcast.emit('materialResponse', {
+              'descricao': 'Erro ao inserir material!',
+              'error': true
+            });
+            return;
+          }
+          let sql = 'INSERT INTO material (nome, upload) VALUES ("'+req.body.materialNome+'", "'+result.insertId+'")';
+          con.query(sql, function(err, result) {
+            if(err){
+              socket.emit('materialResponse', {
+                'descricao': 'Erro ao inserir material!',
+                'error': true
+              });
+              socket.broadcast.emit('materialResponse', {
+                'descricao': 'Erro ao inserir material!',
+                'error': true
+              });
+              return;
+            }
+            socket.emit('materialResponse', {
+              'descricao': 'Sucesso ao inserir material!',
+              'error': false
+            });
+            socket.broadcast.emit('materialResponse', {
+              'descricao': 'Sucesso ao inserir material!',
               'error': false
             });
           });
